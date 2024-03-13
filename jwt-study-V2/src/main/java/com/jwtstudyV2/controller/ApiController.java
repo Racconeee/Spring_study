@@ -7,6 +7,7 @@ import com.jwtstudyV2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class ApiController {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @GetMapping("/")
     public ResponseEntity<String> home(){
@@ -27,7 +30,7 @@ public class ApiController {
         System.out.println(dto.getUsername());
         User userEntity = User.builder()
                 .username(dto.getUsername())
-                .password(dto.getPassword())
+                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
                 .build();
         userRepository.save(userEntity);
 

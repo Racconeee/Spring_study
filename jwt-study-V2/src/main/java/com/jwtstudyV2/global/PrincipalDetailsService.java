@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 
+@Service
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
@@ -18,6 +20,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         System.out.println("loadUserByUsername");
+        System.out.println(username);
         User userEntity = userRepository.findByUsername(username).orElseThrow(() -> new CustomException("입력하신 ID는 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
 
         return new PrincipalDetails(userEntity);
