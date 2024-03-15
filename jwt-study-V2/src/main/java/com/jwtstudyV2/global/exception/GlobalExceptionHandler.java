@@ -28,4 +28,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response , ex.getHttpStatus());
     }
 
+    //MemberException class내용을 기반으로 에러 메세지 생성해서 보냄
+    //throw new MemberException(MemberErrorCode.MEMBER_ALREADY_EXISTS_ERROR); 이런 형식으로 보낸다.
+    @ExceptionHandler(MemberException.class)
+    public ResponseEntity handleException(MemberException e){
+        ErrorCode errorCode = e.getMemberErrorCode();
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getHttpStatus() , errorCode.getCode(), errorCode.getMessage());
+        return ResponseEntity.status(errorCode.getHttpStatus()).body(errorResponse);
+    }
+
+
 }

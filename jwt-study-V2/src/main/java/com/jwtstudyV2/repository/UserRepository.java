@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User , Long> {
 
     Optional<User> findByUsername(String username);
+    Optional<User> findByRefreshToken(String refreshToken); // 문제 생기는지 잘 확인
+
 }

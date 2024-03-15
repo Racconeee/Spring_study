@@ -1,16 +1,12 @@
 package com.jwtstudyV2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
 @Builder
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -19,11 +15,15 @@ public class User {
     private String username;
     private String password;
     private String refreshToken;
+    @Enumerated(EnumType.STRING)
+    private Role roles;
 
-    public User(Long id, String username, String password) {
+    public User(Long id, String username, String password, String refreshToken, Role roles) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.refreshToken = refreshToken;
+        this.roles = roles;
     }
 
 

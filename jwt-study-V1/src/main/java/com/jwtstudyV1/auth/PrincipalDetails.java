@@ -28,7 +28,6 @@ public class PrincipalDetails implements UserDetails {
     private User user;
     private Collection<GrantedAuthority> authorities;
     @Override
-
     public Collection<? extends GrantedAuthority> getAuthorities() {
         System.out.println("PrincipalDetails 실행 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" );
         Collection<GrantedAuthority> authorities = new ArrayList<>();

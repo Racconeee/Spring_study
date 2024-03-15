@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 
+//현재 프로젝트에서는 사용은 안되지만 AbstractAuthenticationProcessingFilter와 비슷한 기능
 @RequiredArgsConstructor
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -22,23 +23,17 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-        System.out.println("JwtCustomAuthenticationFilter 실행 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" );
         try {
-            System.out.println("1");
             ObjectMapper om = new ObjectMapper();
             User user = om.readValue(request.getInputStream(), User.class);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername() , user.getPassword());
-            System.out.println("2");
 
             //이 부분에서 PrincipalDetailsService,PrincipalDetails실행된다.
             //authenticationManager를 이용해서 로그인 시도
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-            System.out.println("3");
 
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-            System.out.println("4");
 
-            System.out.println("JwtCustomAuthenticationFilter 실행 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡlogin성공 끝 " );
             return authentication;
 
         } catch (IOException e) {

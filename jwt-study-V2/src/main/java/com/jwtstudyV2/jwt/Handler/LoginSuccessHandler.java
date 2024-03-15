@@ -30,14 +30,10 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-
-        System.out.println("LoginSuccessHandler --------------------------");
+        log.info("@222@");
         String username = extractUsername(authentication);
         String accessToken = jwtService.createAccessToken(username); //username 클레임을 가지는 JWT 토큰을 생성
         String refreshToken = jwtService.createRefreshToken(); // JwtService의 createRefreshToken을 사용하여 RefreshToken 발급
-
-        log.info("username {} : " , username);
-        log.info("username {} : " , accessToken);
 
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken); // 응답 헤더에 AccessToken, RefreshToken 실어서 응답
         userRepository.findByUsername(username)
