@@ -1,6 +1,8 @@
 package com.jwtstudyV2.controller;
 
 import com.jwtstudyV2.global.exception.CustomException;
+import com.jwtstudyV2.global.exception.MemberErrorCode;
+import com.jwtstudyV2.global.exception.MemberException;
 import com.jwtstudyV2.jwt.JwtService;
 import com.jwtstudyV2.model.Role;
 import com.jwtstudyV2.model.User;
@@ -8,6 +10,7 @@ import com.jwtstudyV2.model.UserDto;
 import com.jwtstudyV2.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,4 +63,14 @@ public class ApiController {
         return ResponseEntity.ok("admin_home()");
     }
 
+
+    @GetMapping("/ex/customException")
+    public ResponseEntity OK_customException() {
+        throw new CustomException("customException",HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/ex/MemberException")
+    public ResponseEntity MemberException() {
+        throw new MemberException(MemberErrorCode.MEMBER_NOT_FOUND_ERROR);
+    }
 }

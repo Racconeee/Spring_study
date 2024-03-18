@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     * RuntimeException 은 Throwable class를 상속받고 있는데 여기에 String getMessage()가 정의 되어있어 사용이 가능하다.
     * */
     @ExceptionHandler(CustomException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String , String>> handlerCustomException(CustomException ex){
         Map<String , String > response = new HashMap<>();
         response.put("error" , ex.getMessage());

@@ -1,8 +1,10 @@
 package com.jwtstudyV2.global.exception;
 
 
+import lombok.Getter;
+
 @Getter
-public class MemberException extends CustomException{
+public class MemberException extends RuntimeException{
 
 
     private final MemberErrorCode memberErrorCode;
